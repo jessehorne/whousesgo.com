@@ -23,9 +23,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	if howOftenInt < 60 {
-		panic("Why are you updating admin tokens so much my guy? Please use 60+ seconds at least.")
-	}
 
 	util.StartUpdateAdminTokenJob(time.Duration(howOftenInt) * time.Second)
 
