@@ -8,6 +8,7 @@ type Company struct {
 	UpdatedAt time.Time
 
 	Name        string
+	Image       string
 	Slug        string
 	Description string
 	Location    string

@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS companies (
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
     name VARCHAR(255),
+    image VARCHAR(255),
     slug VARCHAR(255),
     description TEXT,
     location VARCHAR(255),

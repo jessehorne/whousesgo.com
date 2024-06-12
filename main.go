@@ -4,6 +4,7 @@ import (
 	"github.com/jessehorne/whousesgo.com/database"
 	"github.com/jessehorne/whousesgo.com/util"
 	"github.com/joho/godotenv"
+	"net/http"
 	"os"
 	_ "runtime/debug"
 	"strconv"
@@ -32,7 +33,20 @@ func main() {
 	util.StartUpdateAdminTokenJob(time.Duration(howOftenInt) * time.Second)
 
 	r := gin.Default()
+	r.LoadHTMLGlob("templates/*")
 	r.Use(gin.Recovery())
+	r.Static("/public", "./public")
+	r.StaticFile("/favicon.ico", "./public/favicon.ico")
+
+	// WEB ROUTES
+
+	r.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.tmpl", gin.H{
+			"title": "WhoUsesGo.com | A thorough list of companies that use Golang",
+		})
+	})
+
+	// API ROUTES
 
 	api := r.Group("/api")
 	api.GET("/ping", routes.GetPing)
