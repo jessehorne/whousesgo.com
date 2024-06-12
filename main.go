@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/jessehorne/whousesgo.com/database"
 	"github.com/jessehorne/whousesgo.com/util"
 	"github.com/joho/godotenv"
 	"os"
@@ -18,6 +19,10 @@ func main() {
 		panic(err)
 	}
 
+	if err := database.InitDB(); err != nil {
+		panic(err)
+	}
+
 	howOften := os.Getenv("ADMIN_TOKEN_UPDATE_INTERVAL")
 	howOftenInt, err := strconv.Atoi(howOften)
 	if err != nil {
@@ -31,6 +36,7 @@ func main() {
 
 	api := r.Group("/api")
 	api.GET("/ping", routes.GetPing)
+	api.POST("/company", routes.PostCompany)
 
 	if err := r.Run(":" + os.Getenv("APP_PORT")); err != nil {
 		panic(err)
