@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/jessehorne/whousesgo.com/routes"
 	"github.com/jessehorne/whousesgo.com/util"
 	"github.com/joho/godotenv"
 	"net/http"
@@ -25,19 +26,24 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	companiesCount := len(allCompanies)
 
 	// WEB ROUTES
 
 	r.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.tmpl", gin.H{
 			"title":          "WhoUsesGo.com | A thorough list of companies that use Golang",
-			"companies":      allCompanies,
-			"companiesCount": companiesCount,
+			"companies":      []util.Company{allCompanies[0]}, // needed due to listjs needing a template
+			"companiesCount": 1,
 		})
 	})
 
 	// END WEB ROUTES
+
+	// API ROUTES
+
+	r.GET("/api/companies", routes.GetCompanyList)
+
+	// END API ROUTES
 
 	if err := r.Run(":" + os.Getenv("APP_PORT")); err != nil {
 		panic(err)
