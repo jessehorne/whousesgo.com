@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/jessehorne/whousesgo.com/routes"
+	"github.com/jessehorne/whousesgo.com/endpoints"
 	"github.com/jessehorne/whousesgo.com/util"
 	"github.com/joho/godotenv"
 	"net/http"
@@ -41,7 +41,7 @@ func main() {
 
 	// API ROUTES
 
-	r.GET("/api/companies", routes.GetCompanyList)
+	r.GET("/api/companies", endpoints.GetCompanyList)
 
 	// END API ROUTES
 

@@ -1,4 +1,3 @@
-var count = document.getElementById("count");
 var options = {
     valueNames: ['title', 'location']
 };
@@ -32,8 +31,6 @@ async function updateList() {
             "location": c.Location
         });
     });
-
-    count.innerHTML = "(" + data.companies.length + " results)";
 }
 
 updateList();
