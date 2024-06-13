@@ -20,62 +20,41 @@
     <h1>Who uses <a href="https://go.dev/">Go</a>?</h1>
     <h2>Here's a list of companies I've gathered that are actively using Golang.</h2>
 
-    <div class="search">
-      <input placeholder="Filter results"/>
-    </div>
+    <div id="company-list">
 
-    <div class="list">
-      <div class="list-item">
-        <div class="data">
-          <div class="logo"></div>
-          <div class="details">
-            <div class="title"><a href="#website">Google ></a></div>
-            <div class="location">Atlanta, Georgia, USA</div>
-            <div class="url"><a href="/#slug">Learn more...</a></div>
-          </div>
-        </div>
+      <div class="search-box">
+        <input class="search" placeholder="Filter results"/> <i id="count">({{.companiesCount}} results)</i>
       </div>
 
-      <div class="list-item">
-        <div class="data">
-          <div class="logo"></div>
-          <div class="details">
-            <div class="title"><a href="#website">Google ></a></div>
-            <div class="location">Atlanta, Georgia, USA</div>
-            <div class="url"><a href="/#slug">Learn more...</a></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="list-item">
-        <div class="data">
-          <div class="logo"></div>
-          <div class="details">
-            <div class="title"><a href="#website">Google ></a></div>
-            <div class="location">Atlanta, Georgia, USA</div>
-            <div class="url"><a href="/#slug">Learn more...</a></div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="list-item">
-        <div class="data">
-          <div class="logo"></div>
-          <div class="details">
-            <div class="title"><a href="#website">Google ></a></div>
-            <div class="location">Atlanta, Georgia, USA</div>
-            <div class="url"><a href="/#slug">Learn more...</a></div>
-          </div>
-        </div>
-      </div>
-
-
+      <ul class="list">
+        {{range .companies}}
+            <li class="list-item">
+              <div class="details">
+                <div class="title"><a href="{{.Website}}">{{.Name}} ></a></div>
+                <div class="location">{{.Location}}</div>
+              </div>
+            </li>
+        {{end}}
+      </ul>
 
     </div>
   </div>
 
   <div class="footer">Copyright (c) <a href="https://linkedin.com/in/jesseleehorne">Jesse Horne</a> 2024 | <a href="https://github.com/jessehorne/whousesgo.com">GitHub</a></a></div>
+
+  <script src="/public/list.min.js"></script>
+  <script>
+    var count = document.getElementById("count");
+    var options = {
+      valueNames: ['title', 'location']
+    };
+
+    var l = new List('company-list', options);
+
+    l.on('updated', function() {
+      count.innerHTML = "(" + l.visibleItems.length + " results)";
+    });
+  </script>
 </body>
 
 </html>
